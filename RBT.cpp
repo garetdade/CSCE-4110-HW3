@@ -338,4 +338,15 @@ https://gist.github.com/SubCoder1/70c2cedc44353ffc539c7567b1051028
         int averageRotation(){
           return rotationCount(root);
         }
+
+        int findHight(node* t) {
+          if (t == NULL)
+            return 0;
+          else
+            return 1 + max(findHight(t->left), findHight(t->right));
+        }
+        
+        int hight(){
+          return findHight(root);
+        }
  };

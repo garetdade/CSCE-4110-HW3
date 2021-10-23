@@ -101,6 +101,13 @@ class BST {
             return t;
     }
 
+    int findHight(node* t) {
+      if (t == NULL)
+        return 0;
+      else
+        return 1 + max(findHight(t->left), findHight(t->right));
+    }
+
 public:
     BST() {
         root = NULL;
@@ -125,5 +132,9 @@ public:
 
     void search(int x) {
         root = find(root, x);
+    }
+
+    int hight(){
+      return findHight(root);
     }
 };

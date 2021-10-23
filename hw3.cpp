@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 #include "Node.cpp"
 #include "BST.cpp"
 #include "RBT.cpp"
@@ -16,6 +17,7 @@ void numberGenerator(node *arr[10]);
 void printLinkedList(node *arr[10]);
 void buildBST(node *arr[10], BST *bst[10]);
 void buildRBT(node *arr[10], RB_TREE *rbt[10]);
+void displayInformation(BST* bst[10], RB_TREE* rbt[10]);
 
 
 
@@ -24,7 +26,7 @@ int main(){
 node *arr[10];
 BST *bst[10];
 RB_TREE *rbt[10];
-int i, j, ave;
+int i, j, aveRotation, aveHightBST, aveHightRBT;
 int counter[10];
 
 // Initalizing all the nodes in the array of pointers.
@@ -37,49 +39,17 @@ for (i = 0; i < 10; i++){
 // Calling number generator
 numberGenerator(arr);
 
-// Printing out Linked Lists
-printLinkedList(arr);
+// Printing out Linked Lists (unsorted)
+//printLinkedList(arr);
 
 // Building BST
 buildBST(arr, bst);
 
-// printing ordered BST
-cout << "\n\n Printing out BST\n\n";
-for (i = 0; i < 10; i++){
-  cout << "\n Printing case " << i+1 << endl << endl;
-  bst[i]->display();
-}
-
 // Building Red Black Tree
 buildRBT(arr, rbt);
 
-/*// printing ordered RBT Preorder
-cout << "\n\n Printing out Red Black Tree (Preorder)\n\n";
-for (i = 0; i < 10; i++){
-  cout << "\n Printing case " << i+1 << endl << endl;
-  rbt[i]->PreorderTraversal(rbt[i]->GetRoot());
-  cout << endl;
-} */
-
-// printing ordered RBT Inorder
-cout << "\n\n Printing out Red Black Tree (Inorder)\n\n";
-ave = 0;
-for (i = 0; i < 10; i++){
-  counter[i] = rbt[i]->averageRotation();
-  ave += counter[i];
-  cout << "\n Printing case " << i+1 << " -- Rotation Count: " << counter[i] << endl << endl;
-  rbt[i]->display();
-  cout << endl;
-}
-cout << "Average Roataion Count = " << ave/10 << "\n\n";
-
-/*// printing ordered RBT Postorder
-cout << "\n\n Printing out Red Black Tree (Postorder)\n\n";
-for (i = 0; i < 10; i++){
-  cout << "\n Printing case " << i+1 << endl << endl;
-  rbt[i]->PostorderTraversal(rbt[i]->GetRoot());
-  cout << endl;
-} */
+// Displaying Informtaion to console
+displayInformation(bst, rbt);
 
   return 0;
 }
@@ -159,4 +129,69 @@ void buildRBT(node *arr[10], RB_TREE *rbt[10]){
       tempArr = tempArr->right;
     }
   }
+}
+
+
+void displayInformation(BST* bst[10], RB_TREE* rbt[10]){
+  // Declaring Variables
+  int i, j, aveRotation, aveHightBST, aveHightRBT;
+  int counter[10];
+
+/* -------------------------------------- Print out each tree -----------------------
+  // printing ordered BST
+  cout << "\n\n Printing out BST\n\n";
+  for (i = 0; i < 10; i++){
+    cout << "\n Printing case " << i+1 << endl << endl;
+    bst[i]->display();
+  }
+
+  // printing ordered RBT Preorder
+  cout << "\n\n Printing out Red Black Tree (Preorder)\n\n";
+  for (i = 0; i < 10; i++){
+    cout << "\n Printing case " << i+1 << endl << endl;
+    rbt[i]->PreorderTraversal(rbt[i]->GetRoot());
+    cout << endl;
+  }
+
+  // printing ordered RBT Inorder
+  cout << "\n\n Printing out Red Black Tree (Inorder)\n\n";
+  for (i = 0; i < 10; i++){
+    cout << "\n Printing case " << i+1 << " -- Rotation Count: " << counter[i] << endl << endl;
+    rbt[i]->display();
+    cout << endl;
+  }
+
+  // printing ordered RBT Postorder
+  cout << "\n\n Printing out Red Black Tree (Postorder)\n\n";
+  for (i = 0; i < 10; i++){
+    cout << "\n Printing case " << i+1 << endl << endl;
+    rbt[i]->PostorderTraversal(rbt[i]->GetRoot());
+    cout << endl;
+  }
+  --------------------------------------------- End of Print Functions-----------------*/
+
+  // Calculating average hight of trees and roation for RBT
+  aveHightBST = 0;
+  aveHightRBT = 0;
+  aveRotation = 0;
+  for (i = 0; i < 10; i++){
+    // Calculating Hight
+    aveHightBST += bst[i]->hight();
+    aveHightRBT += rbt[i]->hight();
+
+    // Calculating Roations
+    counter[i] = rbt[i]->averageRotation();
+    aveRotation += counter[i];
+  }
+
+  // Averaging
+  aveHightBST = aveHightBST/10;
+  aveHightRBT = aveHightRBT/10;
+  aveRotation = aveRotation/10;
+
+  // Displaying information to console
+  cout << "Average Roataion Count = " << aveRotation << "\n\n";
+  cout << "Average Hight of the BST = " << aveHightBST << endl;
+  cout << "Average Hight of the RBT = " << aveHightRBT << endl;
+
 }
