@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <algorithm>
+#include <stdio.h>
 #include "Node.cpp"
 #include "BST.cpp"
 #include "RBT.cpp"
@@ -134,7 +135,7 @@ void buildRBT(node *arr[10], RB_TREE *rbt[10]){
 
 void displayInformation(BST* bst[10], RB_TREE* rbt[10]){
   // Declaring Variables
-  int i, j, aveRotation, aveHightBST, aveHightRBT;
+  int i, j, aveRotation, aveHightBST, aveHightRBT, tempBst, tempRbt;
   int counter[10];
 
 /* -------------------------------------- Print out each tree -----------------------
@@ -170,28 +171,44 @@ void displayInformation(BST* bst[10], RB_TREE* rbt[10]){
   }
   --------------------------------------------- End of Print Functions-----------------*/
 
-  // Calculating average hight of trees and roation for RBT
-  aveHightBST = 0;
-  aveHightRBT = 0;
+  // Printing out the table for the Red-Back Tree rotations
+  printf("----- Printing the rotation data for the Red-Black Tree -----\n\n");
+
   aveRotation = 0;
   for (i = 0; i < 10; i++){
-    // Calculating Hight
-    aveHightBST += bst[i]->hight();
-    aveHightRBT += rbt[i]->hight();
-
     // Calculating Roations
     counter[i] = rbt[i]->averageRotation();
     aveRotation += counter[i];
+
+    // Printing to console
+    printf("Test %3d: %*d \n", i+1, 5, counter[i]);
+  }
+
+  // Averaging
+  aveRotation = aveRotation/10;
+  printf("\nAverage: %6d \n\n", aveRotation);
+  printf("--------------------------------------------------\n");
+
+  // Printing out the table for the BST and RBT height
+  aveHightBST = 0;
+  aveHightRBT = 0;
+  printf("----- Printing the Height of the BST and RBT -----\n");
+  printf("%16s %5s\n","BST", "RBT");
+
+  // Calculating average hight of trees and roation for RBT
+  for (i = 0; i < 10; i++){
+    // Calculating Hight
+    tempBst = bst[i]->hight();
+    tempRbt = rbt[i]->hight();
+    aveHightBST += tempBst;
+    aveHightRBT += tempRbt;
+
+    printf("Test %3d: %5d %5d\n", i+1, tempBst, tempRbt);
   }
 
   // Averaging
   aveHightBST = aveHightBST/10;
   aveHightRBT = aveHightRBT/10;
-  aveRotation = aveRotation/10;
-
-  // Displaying information to console
-  cout << "Average Roataion Count = " << aveRotation << "\n\n";
-  cout << "Average Hight of the BST = " << aveHightBST << endl;
-  cout << "Average Hight of the RBT = " << aveHightRBT << endl;
-
+  printf("\nAverage: %6d %5d\n\n", aveHightBST, aveHightRBT);
+  printf("--------------------------------------------------\n\n");
 }

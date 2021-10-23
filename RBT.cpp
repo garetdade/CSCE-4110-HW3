@@ -323,7 +323,9 @@ https://gist.github.com/SubCoder1/70c2cedc44353ffc539c7567b1051028
         }
 
         int rotationCount(node* t){
-          static int sum = 0;
+          static int sum;
+          if (t == root)
+            sum = 0;
           if (t == NULL)
             return 0;
 
@@ -345,7 +347,7 @@ https://gist.github.com/SubCoder1/70c2cedc44353ffc539c7567b1051028
           else
             return 1 + max(findHight(t->left), findHight(t->right));
         }
-        
+
         int hight(){
           return findHight(root);
         }
