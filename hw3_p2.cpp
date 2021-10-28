@@ -9,8 +9,8 @@
 using namespace std;
 
 // Prototypes
-void numberGenerator(node *arr[10]);
-void buildRBT(node *arr[10], RB_TREE *rbt[10]);
+void numberGenerator(node *arr[10], int);
+void buildRBT(node *arr[10], RB_TREE *rbt[10], int);
 
 
 int main() {
@@ -20,14 +20,14 @@ int main() {
   int size = 100;
 
 // Initalizing all the nodes in the array of pointers.
-  for (i = 0; i < 10; i++) {
+  for (int i = 0; i < 10; i++) {
     arr[i] = new node();
     rbt[i] = new RB_TREE();
   }
 
-  cout << setw(10) << "N" << setw(10) << "TIME" << endl;
-  for(int i; i < 22; i++)
-    cout << *;
+  cout << setw(10) << "N" << setw(20) << "TIME" << endl;
+  for(int i = 0; i < 35; i++)
+    cout << '*';
   cout << endl;
 
   for(;size < 1000; size += 100) {
@@ -41,7 +41,7 @@ int main() {
 
     auto end = chrono::steady_clock::now();
 
-    cout << setw(10) << size << setw(10)
+    cout << setw(10) << size << setw(20)
         << (chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 10
         << " ns\n";
   }
