@@ -15,12 +15,12 @@ void buildRBT(node *arr[10], RB_TREE *rbt[10], int);
 
 int main() {
   // Declaring Variables
-  node *arr[10];
-  RB_TREE *rbt[10];
-  int size = 100;
+  int size = 1000;
+  node *arr[size];
+  RB_TREE *rbt[size];
 
 // Initalizing all the nodes in the array of pointers.
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 1000; i++) {
     arr[i] = new node();
     rbt[i] = new RB_TREE();
   }
@@ -30,20 +30,26 @@ int main() {
     cout << '*';
   cout << endl;
 
-  for(int size; size < 1000; size += 100) {
+  for(int i = 100; i <= 1000; i += 100) {
     // Calling number generator
-    numberGenerator(arr, size);
+    numberGenerator(arr, i);
 
     auto start = chrono::high_resolution_clock::now();
 
     // Building Red Black Tree
-    buildRBT(arr, rbt, size);
+    buildRBT(arr, rbt, i);
 
     auto end = chrono::high_resolution_clock::now();
 
-    cout << setw(10) << size << setw(20)
+    cout << setw(10) << i << setw(20)
         << (chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 10
         << " ns\n";
+
+    // resetting arr and rbt
+    for (int j = 0; j < 1000; j++) {
+      arr[j] = new node();
+      rbt[j] = new RB_TREE();
+    }
   }
 
   return 0;
