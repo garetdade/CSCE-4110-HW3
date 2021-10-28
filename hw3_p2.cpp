@@ -30,16 +30,16 @@ int main() {
     cout << '*';
   cout << endl;
 
-  for(;size < 1000; size += 100) {
+  for(int size; size < 1000; size += 100) {
     // Calling number generator
     numberGenerator(arr, size);
 
-    auto start = chrono::steady_clock::now();
+    auto start = chrono::high_resolution_clock::now();
 
     // Building Red Black Tree
     buildRBT(arr, rbt, size);
 
-    auto end = chrono::steady_clock::now();
+    auto end = chrono::high_resolution_clock::now();
 
     cout << setw(10) << size << setw(20)
         << (chrono::duration_cast<chrono::nanoseconds>(end - start).count()) / 10
