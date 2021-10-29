@@ -3,6 +3,7 @@
 #include <time.h>
 #include <algorithm>
 #include <stdio.h>
+#include <climits>
 #include "Node.cpp"
 #include "BST.cpp"
 #include "RBT.cpp"
@@ -135,7 +136,7 @@ void buildRBT(node *arr[10], RB_TREE *rbt[10]){
 
 void displayInformation(BST* bst[10], RB_TREE* rbt[10]){
   // Declaring Variables
-  int i, j, aveRotation, aveHightBST, aveHightRBT, tempBst, tempRbt;
+  int i, j, aveRotation, aveHightBST, aveHightRBT, tempBst, tempRbt, aveMinDepthBST, minTempBST, aveMinDepthRBT, minTempRBT;
   int counter[10];
 
 /* -------------------------------------- Print out each tree -----------------------
@@ -192,23 +193,37 @@ void displayInformation(BST* bst[10], RB_TREE* rbt[10]){
   // Printing out the table for the BST and RBT height
   aveHightBST = 0;
   aveHightRBT = 0;
+  aveMinDepthBST = 0;
+  aveMinDepthRBT = 0;
   printf("----- Printing the Height of the BST and RBT -----\n");
-  printf("%16s %5s\n","BST", "RBT");
+  printf("%17s %7s %7s %7s\n","BST Min", "BST Max", "RBT Min", "RBT Max");
 
   // Calculating average hight of trees and roation for RBT
   for (i = 0; i < 10; i++){
-    // Calculating Hight
+    // Calculating Hight/ Max Depth
     tempBst = bst[i]->hight();
     tempRbt = rbt[i]->hight();
     aveHightBST += tempBst;
     aveHightRBT += tempRbt;
 
-    printf("Test %3d: %5d %5d\n", i+1, tempBst, tempRbt);
+    // Calcualting MinDepth
+    minTempBST = bst[i]->minimumDepth();
+    minTempRBT = rbt[i]->minimumDepth();
+    aveMinDepthBST += minTempBST;
+    aveMinDepthRBT += minTempRBT;
+
+    // Printing each Test count
+    printf("Test %3d: %7d %7d %7d %7d\n", i+1, minTempBST, tempBst, minTempRBT, tempRbt);
   }
 
   // Averaging
   aveHightBST = aveHightBST/10;
   aveHightRBT = aveHightRBT/10;
-  printf("\nAverage: %6d %5d\n\n", aveHightBST, aveHightRBT);
+  aveMinDepthBST = aveMinDepthBST/10;
+  aveMinDepthRBT = aveMinDepthRBT/10;
+
+  // Printing Averages
+  printf("\nAverage: %8d %7d %7d %7d\n", aveMinDepthBST, aveHightBST, aveMinDepthRBT, aveHightRBT);
+  printf("\nAverage Hight: %10d %7d\n\n", (aveHightBST - aveMinDepthBST)/2, (aveHightRBT-aveMinDepthRBT)/2);
   printf("--------------------------------------------------\n\n");
 }

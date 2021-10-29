@@ -108,6 +108,32 @@ class BST {
         return 1 + max(findHight(t->left), findHight(t->right));
     }
 
+    int minDepth(node *t)
+    {
+        // Corner case. Should never be hit unless the code is
+        // called on root = NULL
+        if (t == NULL)
+            return 0;
+
+        // Base case : Leaf Node. This accounts for height = 1.
+        if (t->left == NULL && t->right == NULL)
+        return 1;
+
+        int l = INT_MAX;
+        int r = INT_MAX;
+        // If left subtree is not NULL, recur for left subtree
+
+        if (t->left)
+        l = minDepth(t->left);
+
+        // If right subtree is not NULL, recur for right subtree
+        if (t->right)
+        r =  minDepth(t->right);
+
+      //height will be minimum of left and right height +1
+        return min(l , r) + 1;
+    }
+
 public:
     BST() {
         root = NULL;
@@ -136,5 +162,9 @@ public:
 
     int hight(){
       return findHight(root);
+    }
+
+    int minimumDepth(){
+      return minDepth(root);
     }
 };
